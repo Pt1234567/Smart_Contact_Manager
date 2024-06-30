@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html class="dark" xmlns:th="http://www.thymeleaf.org" th:fragment="parent(content,title)">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title th:replace="${title}">Base Page</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <link rel="stylesheet" th:href="@{/css/output.css}">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.4.1/flowbite.min.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div th:replace="navbar :: navbar"></div>
+        <div class="p-4">
+            <section th:replace="${content}"></section>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.4.1/flowbite.min.js"></script>
+    </body>
+</html>
