@@ -25,7 +25,9 @@ public class PageController {
       @Autowired
       private UserService userService;
     
-      @GetMapping("/hii")
+
+
+      @GetMapping("/")
       public String hii(){
             System.out.println("hii");
             return "hii";
@@ -43,6 +45,8 @@ public class PageController {
             System.out.println("Service page loading");
             return "service";
       }
+
+     
 
       @GetMapping("/login")
       public String loginPage(){
