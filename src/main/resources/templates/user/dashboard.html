@@ -1,15 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" th:replace="~{base :: parent(~{::#content},~{::title})}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${loggedInUser.name}"></title>
+    <link rel="stylesheet" th:href="@{./css/output.css}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.4.1/flowbite.min.css" rel="stylesheet" />
 
-<html>
-      <head>
-            <meta charset="utf-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <title></title>
-            <meta name="description" content="">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <link rel="stylesheet" href="">
-      </head>
-      <body>
-            
-          <h1>This is user dashboard page</h1>
-      </body>
-</html>           
+</head>
+<body>
+
+   
+      
+    
+<div id="content">    
+
+      <!--User logged in sidebar-->
+   <div th:if="${loggedInUser}">
+      <div th:replace="~{user/sidebar :: sidebar}"></div>
+  </div> 
+
+  <div class="sm:pl-64 pt-20" style="height: 1000px">
+      <div class="flex justify-center flex-col items-center">
+      <h1 class="text-5xl">Welcome To Dashboard Page</h1>
+  </div>
+ </div>
+
+</div>
+   
+  
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.4.1/flowbite.min.js"></script>
+</body>
+</html>

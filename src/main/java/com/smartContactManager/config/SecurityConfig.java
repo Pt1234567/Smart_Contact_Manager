@@ -69,7 +69,7 @@ public class SecurityConfig {
 
                   formLogin.loginPage("/login");
                   formLogin.loginProcessingUrl("/authenticate");//form login hoke is url pe submit hoga
-                  formLogin.defaultSuccessUrl("/user/dashboard"); //agar login success hua toh yeh url pe redirect hoga
+                  formLogin.defaultSuccessUrl("/user/profile"); //agar login success hua toh yeh url pe redirect hoga
                   ///formLogin.failureForwardUrl("/login?error=true"); //agar login fail hua toh yeh url pe redirect hoga  
                   formLogin.usernameParameter("email");
                   formLogin.passwordParameter("password");
