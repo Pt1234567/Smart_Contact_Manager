@@ -34,7 +34,9 @@ public class Contact {
       private String contactPicture;
       private String description;
       private boolean isFavourite=false;
-      
+      private String githubLink;
+      private String linkedInlink;
+      private String cloudinaryPublicId;
 
       @ManyToOne
       private User user;
