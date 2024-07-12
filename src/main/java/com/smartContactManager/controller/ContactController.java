@@ -1,11 +1,11 @@
 package com.smartContactManager.controller;
 
-import java.util.List;
 import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.smartContactManager.entities.Contact;
 import com.smartContactManager.entities.User;
 import com.smartContactManager.forms.ContactForm;
+import com.smartContactManager.helpers.AppConstants;
 import com.smartContactManager.helpers.Helper;
 import com.smartContactManager.helpers.Message;
 import com.smartContactManager.helpers.MessageType;
@@ -95,15 +97,21 @@ public class ContactController {
       }
     
       @RequestMapping
-      public String viewContacts(Authentication authentication,Model model){
+      public String viewContacts(Authentication authentication,
+      @RequestParam(value="page",defaultValue="0")int page,
+      @RequestParam(value="size",defaultValue="10")int size,
+      @RequestParam(value="sortBy" ,defaultValue="name")String sortBy,
+      @RequestParam(value="direction", defaultValue="asc")String direction,
+      Model model){
             //load all contacts
             //get all contacts for logged in user
 
             String userName=Helper.getEmailOffLoggedInUser(authentication);
             User user=userService.getUserByEmail(userName);
 
-            List<Contact> contacts = contactService.getByUserId(user.getUserId());
+            Page<Contact> contacts = contactService.getByUser(user,page,size,sortBy,direction);
             model.addAttribute("contacts", contacts);
+            model.addAttribute("pageSize",AppConstants.PAGE_SIZE);
 
             return "user/contacts";
       }

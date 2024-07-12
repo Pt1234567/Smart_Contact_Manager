@@ -2,7 +2,10 @@ package com.smartContactManager.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.smartContactManager.entities.Contact;
+import com.smartContactManager.entities.User;
 
 public interface  ContactService {
 
@@ -22,5 +25,7 @@ public interface  ContactService {
      List<Contact> search(String name,String email,String number);
 
      List<Contact> getByUserId(String userId);
+
+     Page<Contact> getByUser(User user,int page ,int size,String sortField,String sortDirection);
 
 }
