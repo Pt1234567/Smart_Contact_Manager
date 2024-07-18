@@ -30,7 +30,23 @@ public class ContactServiceImpl implements ContactService{
 
     @Override
     public Contact update(Contact contact) {
-      throw new UnsupportedOperationException("Not supported yet.");
+        var oldContact=contactRepo.findById(contact.getContactId()).orElseThrow(()->new ResourceNotFoundException("Contact not found"));
+         oldContact.setContactName(contact.getContactName());
+         oldContact.setContactEmail(contact.getContactEmail());
+         oldContact.setAddress(contact.getAddress());
+         oldContact.setContactPhone(contact.getContactPhone());
+         oldContact.setGithubLink(contact.getGithubLink());
+         oldContact.setLinkedInlink(contact.getLinkedInlink());
+         oldContact.setFavourite(contact.isFavourite());
+
+         
+         if(contact.getContactPicture()!=null){
+            oldContact.setContactPicture(contact.getContactPicture());
+            oldContact.setCloudinaryPublicId(contact.getCloudinaryPublicId());
+         }
+         
+          
+         return contactRepo.save(oldContact);
     }
 
     @Override
@@ -40,19 +56,15 @@ public class ContactServiceImpl implements ContactService{
 
     @Override
     public Contact getById(String id) {
-       return contactRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("User does not exist"));
+       return contactRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("Contact does not exist"));
     }
 
     @Override
     public void delete(String id) {
-        Contact contact=contactRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("User does not exist"));
+        Contact contact=contactRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("Contact does not exist"));
         contactRepo.delete(contact);
     }
 
-    @Override
-    public List<Contact> search(String name, String email, String number) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 
     @Override
     public List<Contact> getByUserId(String userId) {
@@ -66,5 +78,28 @@ public class ContactServiceImpl implements ContactService{
         var pageable=PageRequest.of(page, size);
         return contactRepo.findByUser(user, pageable);
     }
+
+    @Override
+    public Page<Contact> searchByname(String nameKeyword, int size, int page, String sortby, String order,User user) {
+        Sort sort=order.equals("desc")?Sort.by(sortby).descending():Sort.by(sortby).ascending();
+        var pageable=PageRequest.of(page,size,sort);
+        return contactRepo.findByUserAndContactNameContaining(user,nameKeyword,pageable);
+    }
+
+    @Override
+    public Page<Contact> searchByEmail(String emailKeyword, int size, int page, String sortby, String order,User user) {
+        Sort sort=order.equals("desc")?Sort.by(sortby).descending():Sort.by(sortby).ascending();
+        var pageable=PageRequest.of(page,size,sort);
+        return contactRepo.findByUserAndContactEmailContaining(user,emailKeyword, pageable);
+    }
+
+    @Override
+    public Page<Contact> searchByPhone(String phoneKeyword, int size, int page, String sortby, String order,User user) {
+        Sort sort=order.equals("desc")?Sort.by(sortby).descending():Sort.by(sortby).ascending();
+        var pageable=PageRequest.of(page,size,sort);
+        return contactRepo.findByUserAndContactPhoneContaining(user,phoneKeyword, pageable);
+    }
+
+    
 
 }

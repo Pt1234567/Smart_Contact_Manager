@@ -3,7 +3,7 @@
 th:replace="~{base :: parent(~{::#content},~{::title})}">
 <head>
     <meta charset="UTF-8">
-    <title>Add Contact</title>
+    <title>Update Contact</title>
     <link rel="stylesheet" th:href="@{/css/output.css}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.4.1/flowbite.min.css" rel="stylesheet" />
 </head>
@@ -19,12 +19,11 @@ th:replace="~{base :: parent(~{::#content},~{::title})}">
                 <div class="col-span-3"></div>
                 <div class="md:col-span-6 col-span-12">
                     <div class="block p-6 bg-white rounded-xl shadow dark:bg-gray-900 dark:border-gray-700">
-
-                        <div data-th-replace="message :: messagebox"></div>
-                        <h1 class="text-2xl font-semibold">Add New Contact</h1>
-                        <p class="text-gray-500">This contact will be stored on cloud.</p>
-
-                        <form th:action="@{/user/contacts/add}" method="post" th:object="${contactForm}" enctype="multipart/form-data">
+                      
+                        <div data-th-replace="~{message :: messagebox}"></div>
+                        <h1 class="text-2xl font-semibold">Update Contact</h1>
+                       
+                        <form th:action="@{'/user/contacts/update/'+${contactId}}"  th:object="${contactForm}" method="post"   enctype="multipart/form-data">
                             <!-- Name -->
                             <div class="mb-5">
                                 <label for="input-group-1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact Name</label>
@@ -108,7 +107,7 @@ th:replace="~{base :: parent(~{::#content},~{::title})}">
                             <div class="mb-5">
                                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="large_size">Contact Image</label>
                                 <input class="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="image_file_input" th:field="*{contactImage}" type="file">
-                                 <img class="max-h-52 mx-auto"    id="upload_image_preview" alt=""/>
+                                 <img class="max-h-52 mx-auto"  id="upload_image_preview"  th:src="*{picture}" alt=""/>
                             </div>
 
                             <!-- Favourite Checkbox -->
@@ -121,7 +120,7 @@ th:replace="~{base :: parent(~{::#content},~{::title})}">
 
                             <!-- Submit and Reset Buttons -->
                             <div class="button-container mb-5 text-center">
-                                <button type="submit" class="px-3 py-2 rounded bg-blue-500 text-white">Add contact</button>
+                                <button type="submit" class="px-3 py-2 rounded bg-blue-500 text-white">Update contact</button>
                                 <button type="reset" class="px-3 py-2 rounded bg-blue-500 text-white">Reset</button>
                             </div>
                         </form>

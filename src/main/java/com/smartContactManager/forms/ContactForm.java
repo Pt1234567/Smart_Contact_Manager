@@ -2,6 +2,8 @@ package com.smartContactManager.forms;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.smartContactManager.validators.ValidFile;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -34,8 +36,10 @@ public class ContactForm {
   @NotBlank(message="Address is required")
   private String address;
 
-  
-  private MultipartFile picture;
+  @ValidFile(message = "Invalid File")
+  private MultipartFile contactImage;
+
+  private String picture;
   private boolean favourite;
   private String githubLink;
   private String linkedLink;

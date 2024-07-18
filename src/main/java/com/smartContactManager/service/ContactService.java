@@ -22,7 +22,11 @@ public interface  ContactService {
 
      void delete(String id);
 
-     List<Contact> search(String name,String email,String number);
+     Page<Contact> searchByname(String nameKeyword,int size,int page,String sortby,String order,User user);
+
+     Page<Contact> searchByEmail(String emailKeyword,int size,int page,String sortby,String order,User user);
+
+     Page<Contact> searchByPhone(String phoneKeyword,int size,int page,String sortby,String order,User user);
 
      List<Contact> getByUserId(String userId);
 
