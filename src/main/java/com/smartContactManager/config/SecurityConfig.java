@@ -44,6 +44,9 @@ public class SecurityConfig {
 
        @Autowired
        private OAuthAuthenticationSuccesHandler handler;
+
+       @Autowired
+       private AuthFailureHandler authFailureHandler;
       
        @Bean
        public AuthenticationProvider authenticationProvider(){
@@ -73,7 +76,7 @@ public class SecurityConfig {
                   ///formLogin.failureForwardUrl("/login?error=true"); //agar login fail hua toh yeh url pe redirect hoga  
                   formLogin.usernameParameter("email");
                   formLogin.passwordParameter("password");
-                    
+                  formLogin.failureHandler(authFailureHandler);  
              });
              
              httpSecurity.csrf(AbstractHttpConfigurer::disable);

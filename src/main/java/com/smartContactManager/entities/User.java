@@ -54,10 +54,12 @@ public class User implements UserDetails{
 
     private String phoneNumber;
 
+     private String emailToken;
+
       private String about;
       private String profilePic;
 
-      private boolean enabled=true;
+      private boolean enabled=false;
       private boolean emailVerified=false;
       private boolean phoneVerified=false;
 
@@ -87,7 +89,8 @@ public class User implements UserDetails{
           return this.email;
       }
 
-      
-
-
+      @Override
+      public boolean isEnabled(){
+         return this.enabled;
+      }
 }

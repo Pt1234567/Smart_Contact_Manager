@@ -75,8 +75,7 @@ public class ContactController {
             User user=userService.getUserByEmail(userName);
             
             logger.info("File infromation" ,contactForm.getContactImage().getOriginalFilename());
-            String fileName=UUID.randomUUID().toString();
-            String fileURL=imageService.uploadImage(contactForm.getContactImage(),fileName);
+            
 
             Contact contact=new Contact();
             contact.setContactName(contactForm.getName());
@@ -86,9 +85,15 @@ public class ContactController {
             contact.setFavourite(contactForm.isFavourite());
             contact.setGithubLink(contactForm.getGithubLink());
             contact.setLinkedInlink(contactForm.getLinkedLink());
-            contact.setContactPicture(fileURL);
             contact.setUser(user);
-            contact.setCloudinaryPublicId(fileName);
+
+            if(contactForm.getContactImage()!=null && !contactForm.getContactImage().isEmpty()) {
+
+                  String fileName=UUID.randomUUID().toString();
+                  String url=imageService.uploadImage(contactForm.getContactImage(), fileName);
+                  contact.setCloudinaryPublicId(fileName);
+                  contact.setContactPicture(url);
+            }
 
              contactService.save(contact);
 
